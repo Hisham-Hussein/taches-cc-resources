@@ -14,12 +14,14 @@ You're deep in a conversation, made significant progress, but need to start a fr
 
 ### `/whats-next`
 
-Analyzes the conversation and creates a handoff document with:
+Analyzes the conversation and creates a comprehensive handoff document with:
 
 1. **Original task** - What was initially requested
-2. **Work completed** - What's been done toward that task
-3. **Work remaining** - What still needs finishing (no scope creep)
-4. **Context** - Decisions, approaches, blockers, gotchas
+2. **Work completed** - Everything accomplished in detail
+3. **Work remaining** - Specific tasks still needed
+4. **Attempted approaches** - What was tried (including failures)
+5. **Critical context** - Decisions, constraints, discoveries
+6. **Current state** - Exact status of deliverables
 
 **Output format:**
 ```xml
@@ -35,18 +37,34 @@ Implement user authentication with JWT tokens
 </work_completed>
 
 <work_remaining>
-- Add token refresh endpoint
-- Implement logout (token blacklist)
-- Add password reset flow
-- Write tests for auth middleware
+- Add token refresh endpoint in routes/auth.ts
+- Implement logout (token blacklist) using Redis
+- Add password reset flow (email + token verification)
+- Write tests for auth middleware in tests/middleware/auth.test.ts
 </work_remaining>
 
-<context>
+<attempted_approaches>
+- Tried using session-based auth first but switched to JWT for statelessness
+- Attempted to use Passport.js but found it overkill for this use case
+</attempted_approaches>
+
+<critical_context>
 - Using jsonwebtoken library (already in dependencies)
 - Tokens expire in 24h (configurable via JWT_EXPIRY env var)
 - Password hashing uses bcrypt with 10 rounds
 - Discovered: User.findByEmail returns null for missing users (handle this in routes)
-</context>
+- Redis connection required for token blacklist (not yet configured)
+</critical_context>
+
+<current_state>
+- Auth middleware: Complete and tested
+- JWT utils: Complete
+- Login endpoint: Complete
+- Token refresh: Not started
+- Logout: Not started
+- Password reset: Not started
+- Tests: Not started
+</current_state>
 ```
 
 ## Why This Works
