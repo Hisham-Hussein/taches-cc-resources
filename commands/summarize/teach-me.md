@@ -99,7 +99,6 @@ Save the summary to a file:
 
 1. Create directory structure if it doesn't exist:
    - `[current-working-directory]/artifacts/summaries/`
-   - `[current-working-directory]/artifacts/.gitignore` containing `*`
 
 2. Generate filename from topic:
    - Slugify the concept/topic (lowercase, hyphens for spaces)

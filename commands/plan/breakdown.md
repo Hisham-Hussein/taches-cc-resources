@@ -138,7 +138,6 @@ Save the breakdown to a file:
 
 1. Create directory structure if it doesn't exist:
    - `[current-working-directory]/artifacts/plans/`
-   - `[current-working-directory]/artifacts/.gitignore` containing `*`
 
 2. Generate filename from topic:
    - Slugify the task/feature name (lowercase, hyphens for spaces)

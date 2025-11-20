@@ -104,7 +104,6 @@ Save the blog post to a file:
 
 1. Create directory structure if it doesn't exist:
    - `[current-working-directory]/artifacts/writing/`
-   - `[current-working-directory]/artifacts/.gitignore` containing `*`
 
 2. Generate filename from topic:
    - Slugify the title/topic (lowercase, hyphens for spaces)

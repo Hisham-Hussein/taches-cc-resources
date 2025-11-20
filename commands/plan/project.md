@@ -160,7 +160,6 @@ Save the project plan to a file:
 
 1. Create directory structure if it doesn't exist:
    - `[current-working-directory]/artifacts/plans/`
-   - `[current-working-directory]/artifacts/.gitignore` containing `*`
 
 2. Generate filename from topic:
    - Slugify the project name (lowercase, hyphens for spaces)
