@@ -131,9 +131,11 @@ Specific. Executable. Framework-appropriate.
 1. **Standalone skills** - Invoke with `Skill("build-macos-apps")` for guided development
 2. **Context for create-plans** - Loaded automatically when planning that domain
 
-**Example domains:**
+**Example domains included in this repo (../build/):**
 - `macos-apps` - Swift/SwiftUI macOS (19 references, 10k+ lines)
-- `iphone-apps` - Swift/SwiftUI iOS
+- `iphone-apps` - Swift/SwiftUI iOS (19 references, 9.5k+ lines)
+
+**Other example domains:**
 - `unity-games` - Unity game development
 - `swift-midi-apps` - MIDI/audio apps
 - `with-agent-sdk` - Claude Agent SDK apps
@@ -267,16 +269,23 @@ If it sounds like corporate PM theater, it doesn't belong.
 - `workflows/resume.md` - Load handoff, restore context
 - `workflows/get-guidance.md` - Help decide planning approach
 
-## Example Domain Skill
+## Example Domain Skills
 
-See `build/example-nextjs/` for a minimal domain skill showing:
-- Framework-specific patterns
-- Project structure conventions
-- Common commands
-- Phase breakdown strategies
-- Task specificity guidelines
+See `../build/` for example domain expertise skills included in this repo:
 
-Use this as a template for creating your own domain skills.
+**[macos-apps](../build/macos-apps/)** - Comprehensive Swift/SwiftUI macOS development
+- 19 reference files covering architecture, UI patterns, data persistence, networking, testing, debugging, performance, distribution
+- Full SKILL.md with router pattern and workflows
+- 10k+ lines of exhaustive domain knowledge
+
+**[iphone-apps](../build/iphone-apps/)** - Comprehensive Swift/SwiftUI iOS development
+- 19 reference files covering iOS-specific patterns, lifecycle, UI/UX, platform features
+- Complete mobile development expertise
+- 9.5k+ lines of domain knowledge
+
+These demonstrate what "exhaustive domain expertise" means - complete knowledge bases that create-plans loads to make framework-appropriate decisions. When this skill loads macos-apps, the resulting PLAN.md tasks include specific files, SwiftUI patterns, testing commands, and macOS-specific details.
+
+Use these as templates for creating your own domain skills with [create-agent-skills](../create-agent-skills/).
 
 ## Success Criteria
 
