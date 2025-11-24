@@ -153,6 +153,8 @@ Hierarchical project planning optimized for solo developer + Claude. Create exec
 
 **Context management:** Auto-handoff at 10% tokens remaining. Git versioning commits outcomes, not process.
 
+**Commands:** `/create-plan` (invoke skill), `/run-plan <path>` (execute PLAN.md with intelligent segmentation)
+
 See [create-plans README](./skills/create-plans/README.md) for full documentation.
 
 ### [Create Agent Skills](./skills/create-agent-skills/)
@@ -205,7 +207,7 @@ Commands: `/debug`
 
 ## Recommended Workflow
 
-**For building projects:** Use the [create-plans](#create-plans) skill as your primary workflow. It provides hierarchical planning (BRIEF.md → ROADMAP.md → phases/PLAN.md), domain-aware task generation, context management with handoffs, and git versioning.
+**For building projects:** Use `/create-plan` to invoke the [create-plans](#create-plans) skill. After planning, use `/run-plan <path-to-PLAN.md>` to execute phases with intelligent segmentation. This provides hierarchical planning (BRIEF.md → ROADMAP.md → phases/PLAN.md), domain-aware task generation, context management with handoffs, and git versioning.
 
 **For domain expertise:** Use [create-agent-skills](#create-agent-skills) to create exhaustive knowledge bases in `~/.claude/skills/expertise/`. These skills are automatically loaded by create-plans to make task specifications framework-specific instead of generic.
 
