@@ -1,13 +1,17 @@
 # Workflow: Create a New Skill
 
-<required_reading>
-**Read these reference files NOW:**
-1. references/recommended-structure.md
-2. references/skill-structure.md
-3. references/core-principles.md
-4. references/use-xml-tags.md
-5. references/cso-guide.md (Claude Search Optimization - CRITICAL for descriptions)
-</required_reading>
+<progressive_loading>
+**Load reference files at point of need (not all upfront):**
+
+| Step | File to Read | Why |
+|------|--------------|-----|
+| Step 3 | recommended-structure.md | Decide simple vs router pattern |
+| Step 5 | skill-structure.md, core-principles.md | Write SKILL.md with correct structure |
+| Step 5 CSO | cso-guide.md | Write description correctly |
+| Step 5-7 | use-xml-tags.md | Write XML content |
+
+**Read each file when you reach that step, not before.**
+</progressive_loading>
 
 <evaluation_structure>
 
@@ -99,6 +103,8 @@ If research requested:
 
 ## Step 3: Decide Structure
 
+**Read now:** `references/recommended-structure.md`
+
 ### 3a. Choose Base Structure
 
 **Simple skill (single workflow, <200 lines):**
@@ -159,6 +165,8 @@ mkdir -p ~/.claude/skills/{skill-name}/scripts    # for reusable code
 
 ## Step 5: Write SKILL.md (Progressive Building)
 
+**Read now:** `references/skill-structure.md`, `references/core-principles.md`
+
 Build in stages, testing at each gate before adding complexity:
 
 ### Gate 1: POC (Does it activate?)
@@ -203,6 +211,8 @@ What works for Opus may need more detail for Haiku. Aim for instructions that wo
 
 ### CSO Check for Description (CRITICAL)
 
+**Read now:** `references/cso-guide.md`
+
 **The Description Trap:** If description summarizes workflow, Claude may follow description instead of reading the skill body.
 
 Verify the description field:
@@ -217,6 +227,8 @@ Verify the description field:
 **Good:** "Use when creating, auditing, or testing Claude Code skills"
 
 ## Step 6: Write Workflows (if complex)
+
+**Read now:** `references/use-xml-tags.md` (if not already loaded)
 
 For each workflow:
 ```xml

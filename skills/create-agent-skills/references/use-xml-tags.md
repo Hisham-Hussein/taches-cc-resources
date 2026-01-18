@@ -266,47 +266,6 @@ Ask these questions:
 </when_to_add_conditional>
 </intelligence_rules>
 
-<xml_vs_markdown_headings>
-<token_efficiency>
-XML tags are more efficient than markdown headings:
-
-**Markdown headings**:
-```markdown
-## Quick start
-## Workflow
-## Advanced features
-## Success criteria
-```
-Total: ~20 tokens, no semantic meaning to Claude
-
-**XML tags**:
-```xml
-<quick_start>
-<workflow>
-<advanced_features>
-<success_criteria>
-```
-Total: ~15 tokens, semantic meaning built-in
-</token_efficiency>
-
-<parsing_accuracy>
-XML provides unambiguous boundaries and semantic meaning. Claude can reliably:
-- Identify section boundaries
-- Understand content purpose
-- Skip irrelevant sections
-- Parse programmatically
-
-Markdown headings are just visual formatting. Claude must infer meaning from heading text.
-</parsing_accuracy>
-
-<consistency>
-XML enforces consistent structure across all skills. All skills use the same tag names for the same purposes. Makes it easier to:
-- Validate skill structure programmatically
-- Learn patterns across skills
-- Maintain consistent quality
-</consistency>
-</xml_vs_markdown_headings>
-
 <nesting_guidelines>
 <proper_nesting>
 XML tags can nest for hierarchical content:
@@ -353,114 +312,12 @@ Be consistent within your skill. If you use `<workflow>`, don't also use `<proce
 </tag_naming>
 </nesting_guidelines>
 
-<anti_pattern>
-**DO NOT use markdown headings in skill body content.**
-
-❌ Bad (hybrid approach):
-```markdown
-# PDF Processing
-
-## Quick start
-
-Extract text with pdfplumber...
-
-## Advanced features
-
-Form filling...
-```
-
-✅ Good (pure XML):
-```markdown
-<objective>
-PDF processing with text extraction, form filling, and merging.
-</objective>
-
-<quick_start>
-Extract text with pdfplumber...
-</quick_start>
-
-<advanced_features>
-Form filling...
-</advanced_features>
-```
-</anti_pattern>
-
 <benefits>
-<benefit type="clarity">
-Clearly separate different sections with unambiguous boundaries
-</benefit>
-
-<benefit type="accuracy">
-Reduce parsing errors. Claude knows exactly where sections begin and end.
-</benefit>
-
-<benefit type="flexibility">
-Easily find, add, remove, or modify sections without rewriting
-</benefit>
-
-<benefit type="parseability">
-Programmatically extract specific sections for validation or analysis
-</benefit>
-
-<benefit type="efficiency">
-Lower token usage compared to markdown headings
-</benefit>
-
-<benefit type="consistency">
-Standardized structure across all skills in the ecosystem
-</benefit>
+XML provides: clarity (unambiguous boundaries), accuracy (no parsing errors), flexibility (easy modification), parseability (programmatic extraction), efficiency (lower tokens), consistency (standardized structure).
 </benefits>
 
 <combining_with_other_techniques>
-XML tags work well with other prompting techniques:
+XML tags combine with: multi-shot learning (`<examples>`), chain of thought (`<thinking>`/`<answer>`), templates (`<template>`), reference material (`<schema>`).
 
-**Multi-shot learning**:
-```xml
-<examples>
-<example number="1">...</example>
-<example number="2">...</example>
-</examples>
-```
-
-**Chain of thought**:
-```xml
-<thinking>
-Analyze the problem...
-</thinking>
-
-<answer>
-Based on the analysis...
-</answer>
-```
-
-**Template provision**:
-```xml
-<template>
-```markdown
-# Report Title
-
-## Summary
-...
-```
-</template>
-```
-
-**Reference material**:
-```xml
-<schema>
-{
-  "field": "type"
-}
-</schema>
-```
+Reference content by tag name: "Follow the workflow in `<workflow>`..." (self-documenting).
 </combining_with_other_techniques>
-
-<tag_reference_pattern>
-When referencing content in tags, use the tag name:
-
-"Using the schema in `<schema>` tags..."
-"Follow the workflow in `<workflow>`..."
-"See examples in `<examples>`..."
-
-This makes the structure self-documenting.
-</tag_reference_pattern>

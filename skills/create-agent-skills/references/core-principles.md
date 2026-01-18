@@ -28,13 +28,7 @@ This consistency makes skills predictable and easier to maintain.
 </consistency>
 
 <parseability>
-XML provides unambiguous boundaries and semantic meaning. Claude can reliably:
-- Identify section boundaries (where content starts and ends)
-- Understand content purpose (what role each section plays)
-- Skip irrelevant sections (progressive disclosure)
-- Parse programmatically (validation tools can check structure)
-
-Markdown headings are just visual formatting. Claude must infer meaning from heading text, which is less reliable.
+XML provides unambiguous boundaries. Claude can reliably identify sections, understand purpose, skip irrelevant content, and parse programmatically. Markdown headings require inference.
 </parseability>
 
 <token_efficiency>
@@ -62,14 +56,7 @@ Savings compound across all skills in the ecosystem.
 </token_efficiency>
 
 <claude_performance>
-Claude performs better with pure XML because:
-- Unambiguous section boundaries reduce parsing errors
-- Semantic tags convey intent directly (no inference needed)
-- Nested tags create clear hierarchies
-- Consistent structure across skills reduces cognitive load
-- Progressive disclosure works more reliably
-
-Pure XML structure is not just a style preference—it's a performance optimization.
+Claude performs better with pure XML: unambiguous boundaries reduce parsing errors, semantic tags convey intent directly, nested tags create hierarchies, consistent structure reduces cognitive load, and progressive disclosure works reliably.
 </claude_performance>
 </why_xml>
 
@@ -277,61 +264,15 @@ Skills act as additions to models, so effectiveness depends on the underlying mo
 </description>
 
 <testing_across_models>
-Test your skill with all models you plan to use:
-
-<haiku_testing>
-**Claude Haiku** (fast, economical)
-
-Questions to ask:
-- Does the skill provide enough guidance?
-- Are examples clear and complete?
-- Do implicit assumptions become explicit?
-- Does Haiku need more structure?
-
-Haiku benefits from:
-- More explicit instructions
-- Complete examples (no partial code)
-- Clear success criteria
-- Step-by-step workflows
-</haiku_testing>
-
-<sonnet_testing>
-**Claude Sonnet** (balanced)
-
-Questions to ask:
-- Is the skill clear and efficient?
-- Does it avoid over-explanation?
-- Are workflows well-structured?
-- Does progressive disclosure work?
-
-Sonnet benefits from:
-- Balanced detail level
-- XML structure for clarity
-- Progressive disclosure
-- Concise but complete guidance
-</sonnet_testing>
-
-<opus_testing>
-**Claude Opus** (powerful reasoning)
-
-Questions to ask:
-- Does the skill avoid over-explaining?
-- Can Opus infer obvious steps?
-- Are constraints clear?
-- Is context minimal but sufficient?
-
-Opus benefits from:
-- Concise instructions
-- Principles over procedures
-- High degrees of freedom
-- Trust in reasoning capabilities
-</opus_testing>
+| Model | Needs | Ask |
+|-------|-------|-----|
+| **Haiku** | Explicit instructions, complete examples, step-by-step workflows | Does it provide enough guidance? |
+| **Sonnet** | Balanced detail, XML structure, progressive disclosure | Is it clear and efficient? |
+| **Opus** | Concise instructions, principles over procedures, high freedom | Does it avoid over-explaining? |
 </testing_across_models>
 
 <balancing_across_models>
-Aim for instructions that work well across all target models:
-
-**Good balance**:
+**Good balance** (works across all models):
 ```xml
 <quick_start>
 Use pdfplumber for text extraction:
@@ -343,25 +284,6 @@ with pdfplumber.open("file.pdf") as pdf:
 ```
 
 For scanned PDFs requiring OCR, use pdf2image with pytesseract instead.
-</quick_start>
-```
-
-This works for all models:
-- Haiku gets complete working example
-- Sonnet gets clear default with escape hatch
-- Opus gets enough context without over-explanation
-
-**Too minimal for Haiku**:
-```xml
-<quick_start>
-Use pdfplumber for text extraction.
-</quick_start>
-```
-
-**Too verbose for Opus**:
-```xml
-<quick_start>
-PDF files are documents that contain text. To extract that text, we use a library called pdfplumber. First, import the library at the top of your Python file. Then, open the PDF file using the pdfplumber.open() method. This returns a PDF object. Access the pages attribute to get a list of pages. Each page has an extract_text() method that returns the text content...
 </quick_start>
 ```
 </balancing_across_models>
