@@ -9,6 +9,50 @@
 5. references/cso-guide.md (Claude Search Optimization - CRITICAL for descriptions)
 </required_reading>
 
+<evaluation_first>
+
+## Before You Write Anything: Test Without a Skill
+
+1. **Complete the task without a skill**: Work through the problem using normal prompting. Notice what context you repeatedly provide.
+
+2. **Document failures**: Where did Claude fail or need help? These are your real gaps.
+
+3. **Create 3 test scenarios**: Based on actual failures, not imagined ones.
+
+   ```text
+   Scenario 1: [task] → Expected: [behavior] → Without skill: [what failed]
+   Scenario 2: ...
+   Scenario 3: ...
+   ```
+
+4. **Establish baseline**: How does Claude perform on these scenarios without your skill?
+
+5. **Only then write minimal instructions** to pass those tests.
+
+**The trap**: Writing extensive documentation before testing leads to solving problems that don't exist.
+
+</evaluation_first>
+
+<planning_phase>
+
+## Step 0: Plan Before Building (Required)
+
+Before touching the computer, answer on paper:
+
+1. **Purpose**: What is this skill for? (one sentence)
+2. **Problem**: What repetitive task or error does this solve?
+3. **Deliverable**: What will exist when done?
+   - SKILL.md structure (simple or router?)
+   - Which subdirectories? (workflows/, references/, templates/, scripts/)
+4. **Success Criteria**: How will you test that it works?
+5. **Out of Scope**: What will this skill explicitly NOT do?
+
+**Checkpoint**: Can you draw your skill's file structure on paper? If not, keep planning.
+
+**For complex skills** (multi-phase builds, external API integration, domain expertise needed):
+Use `/create-plan` to create a formal brief and roadmap first.
+</planning_phase>
+
 <process>
 ## Step 1: Adaptive Requirements Gathering
 
@@ -100,27 +144,56 @@ mkdir -p ~/.claude/skills/{skill-name}/templates  # for output structures
 mkdir -p ~/.claude/skills/{skill-name}/scripts    # for reusable code
 ```
 
-## Step 5: Write SKILL.md
+## Step 5: Write SKILL.md (Progressive Building)
 
-**Simple skill:** Write complete skill file with:
-- YAML frontmatter (name, description)
-- `<objective>`
-- `<quick_start>`
-- Content sections with pure XML
-- `<success_criteria>`
+Build in stages, testing at each gate before adding complexity:
 
-**Complex skill:** Write router with:
-- YAML frontmatter
-- `<essential_principles>` (inline, unavoidable)
-- `<intake>` (question to ask user)
-- `<routing>` (maps answers to workflows)
-- `<reference_index>` and `<workflows_index>`
+### Gate 1: POC (Does it activate?)
+
+- [ ] YAML frontmatter (name, description with triggers)
+- [ ] One `<objective>` paragraph
+- [ ] One `<quick_start>` example
+- [ ] Basic `<success_criteria>`
+
+**Test**: Invoke skill. Does it activate on the right triggers? Does quick_start work?
+
+- ✅ Pass → Continue to Gate 2
+- ❌ Fail → Fix before adding complexity
+
+### Gate 2: MVP (Does it solve the problem?)
+
+- [ ] Add workflows/ if multiple procedures needed
+- [ ] Add references/ if domain knowledge needed
+- [ ] Complete Steps 6-10 (structure, validation, slash command)
+
+**Test**: Run through primary use case end-to-end.
+
+- ✅ Pass → Continue to Gate 3 (if discipline skill) or ship
+- ❌ Fail → Fix, re-test
+
+### Gate 3: Production (Is it bulletproof?)
+
+- [ ] TDD testing if discipline-enforcing (Step 12)
+- [ ] Package if distributing (Step 13)
+
+### Model Compatibility Check
+
+Test with all models you plan to support:
+
+- [ ] **Haiku**: Does it need more guidance? (fastest, needs clearer instructions)
+- [ ] **Sonnet**: Is it clear and efficient? (balanced)
+- [ ] **Opus**: Are you over-explaining? (powerful reasoning, verbose skills waste tokens)
+
+What works for Opus may need more detail for Haiku. Aim for instructions that work across all target models.
+
+**Why gates matter**: If you build everything before testing, you won't know which part broke. Each gate isolates problems to a specific stage.
 
 ### CSO Check for Description (CRITICAL)
 
 **The Description Trap:** If description summarizes workflow, Claude may follow description instead of reading the skill body.
 
 Verify the description field:
+
 - ✅ Starts with "Use when..." or "This skill should be used when..."
 - ✅ Contains specific trigger phrases users would say
 - ✅ Written in third person

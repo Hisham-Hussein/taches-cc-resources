@@ -244,3 +244,40 @@ A skill is fully tested when:
 5. **Edge cases covered** - Variations don't slip through
 6. **Documentation complete** - Testing process recorded for future reference
 </success_criteria>
+
+<debugging_mindset>
+
+## Debugging: Blame Yourself First
+
+When a skill doesn't work, investigate in this order:
+
+1. **Your prompts** - trigger keywords, terminology, routing conditions
+2. **Your structure** - file paths, XML tags, workflow loading
+3. **Your conditions** - variables, feature flags
+4. **Model limitations** - only after ruling out 1-3
+
+**Quick check before blaming the model:**
+
+- [ ] Read skill aloud - is it clear?
+- [ ] Verify trigger keywords in description
+- [ ] Confirm file paths exist
+- [ ] Test with minimal example
+
+## Claude A/B Iteration Pattern
+
+Use two Claude instances to develop skills:
+
+- **Claude A** (the author): Helps you design and refine the skill
+- **Claude B** (the tester): Fresh instance that uses the skill on real tasks
+
+**Workflow:**
+
+1. Work with Claude A to create skill
+2. Test with Claude B on actual tasks
+3. Observe where Claude B struggles
+4. Return to Claude A: "Claude B forgot to X when I asked for Y"
+5. Refine and repeat
+
+This works because Claude understands both how to write agent instructions AND what agents need.
+
+</debugging_mindset>

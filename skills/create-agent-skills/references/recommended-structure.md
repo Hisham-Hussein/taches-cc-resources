@@ -17,6 +17,44 @@ skill-name/
 ```
 </structure>
 
+<cookbook_pattern>
+
+## Cookbook Pattern
+
+Think of `workflows/` and `references/` as a cookbook:
+
+- Each file is a **recipe** for a specific scenario
+- SKILL.md is the **table of contents** that routes to recipes
+- Routing is **conditional** based on user intent and variables
+
+### Example Routing as Cookbook
+
+```markdown
+## Cookbook
+
+### CLI Commands
+If user requests a non-agentic CLI command:
+  → Read cookbook/cli-command.md
+
+### Claude Code
+If user requests Claude Code AND enable_claude_code is true:
+  → Read cookbook/claude-code.md
+
+### Gemini CLI
+If user requests Gemini CLI AND enable_gemini_cli is true:
+  → Read cookbook/gemini-cli.md
+```
+
+This is **conditional prompting** - the agent only loads what's relevant.
+
+### Why This Mental Model Helps
+
+- **Recipes are self-contained**: Each workflow has everything needed
+- **Table of contents is fast**: SKILL.md scans quickly to find the right recipe
+- **Ingredients are shared**: References are like pantry items multiple recipes use
+
+</cookbook_pattern>
+
 <why_this_works>
 ## Problems This Solves
 

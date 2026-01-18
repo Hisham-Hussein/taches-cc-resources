@@ -111,3 +111,45 @@ The workflow tells Claude WHEN to run the script. The script handles HOW the ope
 - Be cautious with scripts that delete or modify data
 - Consider adding `--dry-run` options for destructive operations
 </security_considerations>
+
+<agentic_code_principles>
+
+## Agentic Code Principles
+
+Scripts that agents execute should return **parseable, informative output**.
+
+### Requirements
+
+1. **Never silent**: Always print something
+2. **Capture errors**: Catch exceptions, return error messages
+3. **Return codes**: Exit 0 on success, non-zero on failure
+4. **Structured output**: JSON or clear text agents can parse
+
+### Example: Before (Non-Agentic)
+
+```python
+def process_file(path):
+    with open(path) as f:
+        return f.read()  # Silent on error, agent doesn't know what happened
+```
+
+### Example: After (Agentic)
+
+```python
+def process_file(path):
+    try:
+        with open(path) as f:
+            content = f.read()
+            print(f"✓ Read {len(content)} bytes from {path}")
+            return content
+    except FileNotFoundError:
+        print(f"✗ Error: File not found: {path}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"✗ Error: {e}", file=sys.stderr)
+        sys.exit(1)
+```
+
+**Why this matters**: Agents can't see into your code. They only see stdout/stderr. If your script fails silently, the agent will assume it worked.
+
+</agentic_code_principles>

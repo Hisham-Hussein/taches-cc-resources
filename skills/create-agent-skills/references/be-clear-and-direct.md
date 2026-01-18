@@ -529,3 +529,30 @@ def process_user_input(raw_input: str) -> dict:
 ```
 </example>
 </practical_examples>
+
+<information_dense_keywords>
+
+## Information-Dense Keywords
+
+Use specific technical terms that carry embedded meaning. One keyword can convey paragraphs of context.
+
+### Examples
+
+| Vague | Information-Dense | Embedded Meaning |
+|-------|-------------------|------------------|
+| "open a new window" | "fork terminal" | New process, inherit context, parallel execution |
+| "python script" | "Astral UV single file script" | UV runner, inline deps, specific structure |
+| "run a command" | "subprocess with stdout/stderr capture" | Python subprocess, error handling, output parsing |
+| "call the API" | "authenticated REST call with retry" | Auth headers, error handling, retry logic |
+
+### How to Apply
+
+When writing skills:
+
+1. Identify vague terms
+2. Replace with specific technical terms
+3. Trust that the model knows what these terms mean
+
+**Why this matters**: Information-dense keywords reduce prompt length while increasing precision. The model has embedded knowledge of these terms from training.
+
+</information_dense_keywords>

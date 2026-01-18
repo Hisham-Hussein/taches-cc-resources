@@ -2,6 +2,16 @@
 Core principles guide skill authoring decisions. These principles ensure skills are efficient, effective, and maintainable across different models and use cases.
 </overview>
 
+<core_four>
+
+## The Core Four
+
+Skills configure four primitives: **Context** (references), **Model** (which LLM), **Prompt** (instructions), **Tools** (scripts/MCP).
+
+Master these four, master agentic engineering.
+
+</core_four>
+
 <xml_structure_principle>
 <description>
 Skills use pure XML structure for consistent parsing, efficient token usage, and improved Claude performance.
