@@ -9,29 +9,26 @@
 5. references/cso-guide.md (Claude Search Optimization - CRITICAL for descriptions)
 </required_reading>
 
-<evaluation_first>
+<evaluation_structure>
 
-## Before You Write Anything: Test Without a Skill
+## Evaluation Structure
 
-1. **Complete the task without a skill**: Work through the problem using normal prompting. Notice what context you repeatedly provide.
+When creating evaluations for your skill, use this format:
 
-2. **Document failures**: Where did Claude fail or need help? These are your real gaps.
+```json
+{
+  "skills": ["skill-name"],
+  "query": "representative task request",
+  "files": ["test-files/example.txt"],
+  "expected_behavior": [
+    "specific behavior 1",
+    "specific behavior 2",
+    "specific behavior 3"
+  ]
+}
+```
 
-3. **Create 3 test scenarios**: Based on actual failures, not imagined ones.
-
-   ```text
-   Scenario 1: [task] → Expected: [behavior] → Without skill: [what failed]
-   Scenario 2: ...
-   Scenario 3: ...
-   ```
-
-4. **Establish baseline**: How does Claude perform on these scenarios without your skill?
-
-5. **Only then write minimal instructions** to pass those tests.
-
-**The trap**: Writing extensive documentation before testing leads to solving problems that don't exist.
-
-</evaluation_first>
+</evaluation_structure>
 
 <planning_phase>
 
@@ -97,7 +94,7 @@ Options:
 If research requested:
 - Use Context7 MCP to fetch current library documentation
 - Or use WebSearch for recent API documentation
-- Focus on 2024-2025 sources
+- Focus on 2025-2026 sources
 - Store findings for use in content generation
 
 ## Step 3: Decide Structure
@@ -130,7 +127,19 @@ Factors favoring router pattern:
 - Same code runs across invocations (deploy, setup, API calls)
 - Operations are error-prone when rewritten each time
 
+**Consider variables when:**
+- Skill has optional features that can be toggled (e.g., `enable_feature_x: true`)
+- Different environments need different behavior (dev vs prod)
+- User preferences should persist across invocations
+
+**Consider meta-prompts (prompts/) when:**
+- Skill spawns subagents via Task tool
+- Context handoff between agent sessions
+- Chaining multiple agents (research → plan → implement)
+
 See references/recommended-structure.md for templates.
+See references/variables-pattern.md for variable usage.
+See references/meta-prompts.md for agent-to-agent communication.
 
 ## Step 4: Create Directory
 
