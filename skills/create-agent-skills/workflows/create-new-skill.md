@@ -315,6 +315,64 @@ scripts/package-skill.sh ~/.claude/skills/{skill-name} ./dist
 ```
 
 Creates `{skill-name}.skill` file for distribution.
+
+## Step 14: Self-Verification (Automatic)
+
+After completing the skill build, spawn a verification subagent to check your work.
+
+### What to Pass to Verifier
+
+Prepare this context summary:
+
+```text
+Skill Directory: [full path to skill]
+Skill Type: [simple | complex (router pattern)]
+
+Files Created:
+- [list all files you created]
+
+Decisions Made:
+- templates/: [YES/NO - reason]
+- scripts/: [YES/NO - reason]
+- variables.yaml: [YES/NO - reason]
+- prompts/: [YES/NO - reason]
+- Structure: [simple | router]
+- CSO description: "[exact description from frontmatter]"
+
+Proposed Structure (from planning):
+[paste the structure you showed during planning phase]
+```
+
+### Invoke Verifier
+
+Use the Task tool with `subagent_type: "general-purpose"` (needs Read/Glob access):
+
+```yaml
+Task tool invocation:
+- description: "Verify skill build quality for {skill-name}"
+- prompt: [Read prompts/verify-skill-build.md, then provide the context summary above]
+- subagent_type: "general-purpose"
+```
+
+### Interpret Results
+
+**PASS**: Report findings to user and proceed. Skill is ready to use.
+
+**FAIL**: Report issues to user with the specific findings.
+
+- Default (non-blocking): User can still use skill, but issues are flagged
+- Strict mode: If user requested strict verification, do not mark skill as complete until issues are fixed
+
+### Strict Mode
+
+To enable strict mode, user says "verify strictly" or "block on failures" when requesting the skill build.
+
+In strict mode, FAIL status means:
+
+1. Show issues to user
+2. Ask: "Would you like to fix these issues now, or proceed anyway?"
+3. If fixing, address each issue then re-run verification
+4. Do not mark skill complete until verification passes
 </process>
 
 <success_criteria>
@@ -333,4 +391,5 @@ Skill is complete when:
 - [ ] Validation script passes
 - [ ] Tested with real invocation
 - [ ] TDD testing done (if discipline-enforcing skill)
+- [ ] Self-verification passed (or issues flagged to user)
 </success_criteria>
