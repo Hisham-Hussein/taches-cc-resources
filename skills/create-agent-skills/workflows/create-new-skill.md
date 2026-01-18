@@ -328,9 +328,11 @@ scripts/package-skill.sh ~/.claude/skills/{skill-name} ./dist
 
 Creates `{skill-name}.skill` file for distribution.
 
-## Step 14: Self-Verification (Automatic)
+## Step 14: Self-Verification (REQUIRED)
 
-After completing the skill build, spawn a verification subagent to check your work.
+**You MUST spawn a verification subagent before reporting the skill is complete.**
+
+This step is not optional. Do not rationalize skipping it because you "already validated manually" or "the skill looks good." Manual validation misses things. Spawn the verifier.
 
 ### What to Pass to Verifier
 
@@ -368,12 +370,11 @@ Task tool invocation:
 
 ### Interpret Results
 
-**PASS**: Report findings to user and proceed. Skill is ready to use.
+**PASS**: Report verification results to user. Skill is complete.
 
-**FAIL**: Report issues to user with the specific findings.
+**FAIL**: Report issues to user with specific findings. Ask if they want to fix now or proceed with flagged issues.
 
-- Default (non-blocking): User can still use skill, but issues are flagged
-- Strict mode: If user requested strict verification, do not mark skill as complete until issues are fixed
+**Important**: You have not completed the skill build until you have spawned the verifier and received results. "I validated it myself" is not a substitute.
 
 ### Strict Mode
 
