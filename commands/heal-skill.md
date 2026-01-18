@@ -12,9 +12,11 @@ Analyze the conversation to detect which skill is running, reflect on what went 
 
 <context>
 Skill locations to check:
-- Personal: !`ls -1 ~/.claude/skills/*/SKILL.md 2>/dev/null | head -3`
-- Project: !`ls -1 ./.claude/skills/*/SKILL.md 2>/dev/null | head -3`
-- Plugins: !`ls -d ~/.claude/plugins/cache/*/skills/*/SKILL.md 2>/dev/null | head -3`
+- Personal: `~/.claude/skills/*/SKILL.md`
+- Project: `./.claude/skills/*/SKILL.md`
+- Plugins: `~/.claude/plugins/cache/*/skills/*/SKILL.md`
+
+Use Glob tool to find skills in these locations rather than dynamic shell commands.
 </context>
 
 <quick_start>
