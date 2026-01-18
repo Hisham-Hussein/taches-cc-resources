@@ -99,6 +99,8 @@ If research requested:
 
 ## Step 3: Decide Structure
 
+### 3a. Choose Base Structure
+
 **Simple skill (single workflow, <200 lines):**
 → Single SKILL.md file with all content
 
@@ -119,25 +121,27 @@ Factors favoring router pattern:
 - Essential principles that must not be skipped
 - Skill likely to grow over time
 
-**Consider templates/ when:**
-- Skill produces consistent output structures (plans, specs, reports)
-- Structure matters more than creative generation
+### 3b. Component Checklist (Complete Before Proceeding)
 
-**Consider scripts/ when:**
-- Same code runs across invocations (deploy, setup, API calls)
-- Operations are error-prone when rewritten each time
+**You MUST explicitly decide each item. Add to your TodoWrite if creating the component.**
 
-**Consider variables when:**
-- Skill has optional features that can be toggled (e.g., `enable_feature_x: true`)
-- Different environments need different behavior (dev vs prod)
-- User preferences should persist across invocations
+| Component | Trigger Question | Decision |
+|-----------|------------------|----------|
+| **templates/** | Does skill produce consistent output structures (plans, specs, reports, documents)? | YES → create templates/ / NO → skip |
+| **scripts/** | Does skill run the same code across invocations (deploy, setup, API calls)? | YES → create scripts/ / NO → skip |
+| **variables.yaml** | Does skill have toggleable features, environment-specific behavior, or user preferences? | YES → create variables.yaml / NO → skip |
+| **prompts/** | Does skill spawn subagents (Task tool) OR hand off context between sessions? | YES → create prompts/ / NO → skip |
 
-**Consider meta-prompts (prompts/) when:**
-- Skill spawns subagents via Task tool
-- Context handoff between agent sessions
-- Chaining multiple agents (research → plan → implement)
+**Decision examples:**
 
-See references/recommended-structure.md for templates.
+- Fork-terminal spawns subagents? → YES → needs prompts/ for handoff
+- Skill has `verbose_mode` toggle? → YES → needs variables.yaml
+- Skill always outputs a PLAN.md? → YES → needs templates/
+- Skill deploys to cloud? → YES → needs scripts/
+
+### 3c. References
+
+See references/recommended-structure.md for directory templates.
 See references/variables-pattern.md for variable usage.
 See references/meta-prompts.md for agent-to-agent communication.
 
