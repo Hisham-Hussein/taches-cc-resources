@@ -118,8 +118,12 @@ else
     fi
 fi
 
-# Check body content
-BODY=$(sed '1,/^---$/d' "$SKILL_MD" | sed '1,/^---$/d')
+# Check body content - use pre-calculated SECOND_DASH for reliable extraction
+if [ -n "$SECOND_DASH" ] && [ "$SECOND_DASH" -gt 1 ]; then
+    BODY=$(tail -n +$((SECOND_DASH + 1)) "$SKILL_MD")
+else
+    BODY=""
+fi
 BODY_LINES=$(echo "$BODY" | wc -l)
 BODY_WORDS=$(echo "$BODY" | wc -w)
 
