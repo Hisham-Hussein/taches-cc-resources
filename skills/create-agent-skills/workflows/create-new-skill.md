@@ -278,22 +278,32 @@ Invoke the {skill-name} skill for: $ARGUMENTS
 EOF
 ```
 
-## Step 10: Quick Validation
+## Step 10: Quick Validation (REQUIRED)
 
-Run the validation script:
+**You MUST run the validation script before proceeding.**
+
+Do not skip this because "the YAML looks fine" or "I already checked the structure." The script catches issues humans miss.
+
 ```bash
 scripts/validate-skill.sh ~/.claude/skills/{skill-name}
 ```
 
-Fix any errors before proceeding.
+Fix any errors before proceeding. Do not move to Step 11 until validation passes.
 
-## Step 11: Basic Test
+## Step 11: Basic Test (REQUIRED)
 
-Invoke the skill and observe:
+**You MUST invoke the skill and test it before proceeding to Step 12 or 14.**
+
+Do not skip this because "it should work" or "the structure is correct." Untested skills fail in production. Actually invoke it.
+
+Test these behaviors:
+- Does it activate on the right trigger phrases?
 - Does it ask the right intake question?
 - Does it load the right workflow?
 - Does the workflow load the right references?
 - Does output match expectations?
+
+Report test results to user before proceeding.
 
 ## Step 12: TDD Testing (For Discipline Skills)
 
