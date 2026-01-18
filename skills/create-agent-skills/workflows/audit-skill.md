@@ -5,6 +5,7 @@
 1. references/recommended-structure.md
 2. references/skill-structure.md
 3. references/use-xml-tags.md
+4. references/cso-guide.md
 </required_reading>
 
 <process>
@@ -51,6 +52,14 @@ Evaluate against each criterion:
 - [ ] Has `description:` field
 - [ ] Description says what it does AND when to use it
 - [ ] Description is third person ("Use when...")
+- [ ] Description under 1024 characters
+- [ ] No angle brackets in description
+
+### CSO (Claude Search Optimization) - CRITICAL
+- [ ] Description contains trigger phrases users would say
+- [ ] Description does NOT summarize workflow (the "Description Trap")
+- [ ] No process/step language in description (first, then, after)
+- [ ] Keywords match what users would search for
 
 ### Structure
 - [ ] SKILL.md under 500 lines
@@ -77,6 +86,28 @@ Evaluate against each criterion:
 - [ ] Steps are specific (not "do the thing")
 - [ ] Success criteria are verifiable
 - [ ] No redundant content across files
+
+### TDD Compliance (if discipline-enforcing skill)
+
+Discipline-enforcing skills (TDD, code review, documentation requirements) need validation:
+
+- [ ] Has been tested with pressure scenarios
+- [ ] Baseline failures documented (RED phase completed)
+- [ ] Skill produces different behavior than baseline (GREEN phase verified)
+- [ ] Has rationalization table (if applicable)
+- [ ] Table entries from actual testing, not hypothetical
+- [ ] Red flags list included
+
+**How to identify discipline-enforcing skills:**
+- Imposes constraints (must do X before Y)
+- Requires specific order/process
+- Blocks shortcuts or workarounds
+
+### Token Efficiency
+- [ ] Getting-started content < 150 words
+- [ ] Frequently-loaded sections < 200 words
+- [ ] Total SKILL.md under 500 lines
+- [ ] Heavy content in references/ not in SKILL.md
 
 ## Step 4: Generate Report
 
@@ -117,15 +148,36 @@ If fixing:
 <audit_anti_patterns>
 ## Common Anti-Patterns to Flag
 
-**Skippable principles**: Essential principles in separate file instead of inline
-**Monolithic skill**: Single file over 500 lines
-**Mixed concerns**: Procedures and knowledge in same file
-**Vague steps**: "Handle the error appropriately"
-**Untestable criteria**: "User is satisfied"
-**Markdown headings in body**: Using # instead of XML tags
-**Missing routing**: Complex skill without intake/routing
-**Broken references**: Files mentioned but don't exist
-**Redundant content**: Same information in multiple places
+### Structure Anti-Patterns
+
+- **Skippable principles**: Essential principles in separate file instead of inline
+- **Monolithic skill**: Single file over 500 lines
+- **Mixed concerns**: Procedures and knowledge in same file
+- **Markdown headings in body**: Using # instead of XML tags
+- **Missing routing**: Complex skill without intake/routing
+- **Broken references**: Files mentioned but don't exist
+
+### Content Anti-Patterns
+
+- **Vague steps**: "Handle the error appropriately"
+- **Untestable criteria**: "User is satisfied"
+- **Redundant content**: Same information in multiple places
+- **Passive voice**: "Tests should be written" vs "Write tests"
+- **Missing examples**: Principles without concrete illustrations
+
+### CSO Anti-Patterns
+
+- **Description Trap**: Workflow summary in description field
+- **Process language in description**: "First...", "Then...", "After..."
+- **Missing trigger phrases**: No "Use when..." or similar
+- **Keyword mismatch**: Description keywords ≠ user search terms
+
+### Testing Anti-Patterns (discipline skills)
+
+- **Untested discipline**: No pressure scenarios documented
+- **Hypothetical rationalizations**: Table entries not from real testing
+- **Missing counters**: Excuses identified but not explicitly blocked
+- **Shallow pressure**: Testing with single pressure, not combined
 </audit_anti_patterns>
 
 <success_criteria>

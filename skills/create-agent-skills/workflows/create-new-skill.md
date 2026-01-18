@@ -6,6 +6,7 @@
 2. references/skill-structure.md
 3. references/core-principles.md
 4. references/use-xml-tags.md
+5. references/cso-guide.md (Claude Search Optimization - CRITICAL for descriptions)
 </required_reading>
 
 <process>
@@ -115,6 +116,20 @@ mkdir -p ~/.claude/skills/{skill-name}/scripts    # for reusable code
 - `<routing>` (maps answers to workflows)
 - `<reference_index>` and `<workflows_index>`
 
+### CSO Check for Description (CRITICAL)
+
+**The Description Trap:** If description summarizes workflow, Claude may follow description instead of reading the skill body.
+
+Verify the description field:
+- ✅ Starts with "Use when..." or "This skill should be used when..."
+- ✅ Contains specific trigger phrases users would say
+- ✅ Written in third person
+- ✅ Does NOT summarize workflow or process
+- ❌ Never include step sequences or process descriptions
+
+**Bad:** "Creates skill with TDD validation, pressure testing, and packaging"
+**Good:** "Use when creating, auditing, or testing Claude Code skills"
+
 ## Step 6: Write Workflows (if complex)
 
 For each workflow:
@@ -165,7 +180,16 @@ Invoke the {skill-name} skill for: $ARGUMENTS
 EOF
 ```
 
-## Step 10: Test
+## Step 10: Quick Validation
+
+Run the validation script:
+```bash
+scripts/validate-skill.sh ~/.claude/skills/{skill-name}
+```
+
+Fix any errors before proceeding.
+
+## Step 11: Basic Test
 
 Invoke the skill and observe:
 - Does it ask the right intake question?
@@ -173,19 +197,54 @@ Invoke the skill and observe:
 - Does the workflow load the right references?
 - Does output match expectations?
 
-Iterate based on real usage, not assumptions.
+## Step 12: TDD Testing (For Discipline Skills)
+
+**If skill enforces discipline** (TDD, code review, documentation requirements):
+
+Read `references/pressure-testing.md` and `references/rationalization-tables.md`.
+
+### RED Phase - Baseline Test
+1. Create 3+ pressure scenarios (time + sunk cost + exhaustion)
+2. Run scenarios WITHOUT skill loaded
+3. Document exact rationalizations verbatim
+
+### GREEN Phase - Validate Skill
+1. Load skill into context
+2. Run SAME scenarios
+3. Verify agent now complies
+
+### REFACTOR Phase - Bulletproof
+1. Find NEW rationalizations from GREEN
+2. Add explicit counters to skill
+3. Build rationalization table
+4. Re-test until bulletproof
+
+**Skip TDD for:** Reference skills, technique guides, domain knowledge skills.
+
+## Step 13: Package (Optional)
+
+If distributing the skill:
+```bash
+scripts/package-skill.sh ~/.claude/skills/{skill-name} ./dist
+```
+
+Creates `{skill-name}.skill` file for distribution.
 </process>
 
 <success_criteria>
 Skill is complete when:
+
 - [ ] Requirements gathered with appropriate questions
 - [ ] API research done if external service involved
 - [ ] Directory structure correct
 - [ ] SKILL.md has valid frontmatter
+- [ ] Description follows CSO (triggers only, no workflow summary)
 - [ ] Essential principles inline (if complex skill)
 - [ ] Intake question routes to correct workflow
 - [ ] All workflows have required_reading + process + success_criteria
 - [ ] References contain reusable domain knowledge
 - [ ] Slash command exists and works
+- [ ] Validation script passes
 - [ ] Tested with real invocation
+- [ ] TDD testing done (if discipline-enforcing skill)
 </success_criteria>

@@ -52,6 +52,22 @@ Keep markdown formatting within content (bold, lists, code blocks).
 ### 5. Progressive Disclosure
 
 SKILL.md under 500 lines. Split detailed content into reference files. Load only what's needed for the current workflow.
+
+### 6. Testing Is Not Optional
+
+No skill is complete without testing. Apply TDD principles:
+- **RED:** Test WITHOUT skill, document failure modes
+- **GREEN:** Test WITH skill, verify compliance
+- **REFACTOR:** Close loopholes, repeat until bulletproof
+
+Untested skills fail in production. If you didn't watch an agent fail without the skill, you don't know if the skill teaches the right thing.
+
+### 7. Description Is Not Workflow (CSO)
+
+The `description` field triggers skill loading. Never summarize workflow in description - Claude may follow the description instead of reading the skill body.
+
+- **Good:** "Use when executing implementation plans with independent tasks"
+- **Bad:** "Dispatches subagent per task with code review between tasks"
 </essential_principles>
 
 <intake>
@@ -60,7 +76,9 @@ What would you like to do?
 1. Create new skill
 2. Audit/modify existing skill
 3. Add component (workflow/reference/template/script)
-4. Get guidance
+4. Test a skill (TDD validation)
+5. Package a skill for distribution
+6. Get guidance
 
 **Wait for response before proceeding.**
 </intake>
@@ -71,7 +89,9 @@ What would you like to do?
 | 1, "create", "new", "build" | Ask: "Task-execution skill or domain expertise skill?" | Route to appropriate create workflow |
 | 2, "audit", "modify", "existing" | Ask: "Path to skill?" | Route to appropriate workflow |
 | 3, "add", "component" | Ask: "Add what? (workflow/reference/template/script)" | workflows/add-{type}.md |
-| 4, "guidance", "help" | General guidance | workflows/get-guidance.md |
+| 4, "test", "validate", "TDD" | Ask: "Path to skill?" | workflows/test-skill.md |
+| 5, "package", "distribute", "zip" | Ask: "Path to skill?" | Run scripts/package-skill.sh |
+| 6, "guidance", "help" | General guidance | workflows/get-guidance.md |
 
 **Progressive disclosure for option 1 (create):**
 - If user selects "Task-execution skill" → workflows/create-new-skill.md
@@ -90,6 +110,9 @@ What would you like to do?
 - "create skill for X", "build new skill" → workflows/create-new-skill.md
 - "add workflow", "add reference", etc. → workflows/add-{type}.md
 - "upgrade to router" → workflows/upgrade-to-router.md
+- "test skill", "validate skill", "TDD", "pressure test" → workflows/test-skill.md
+- "package", "distribute", "create .skill" → Run scripts/package-skill.sh
+- "init", "scaffold", "bootstrap" → Run scripts/init-skill.sh
 
 **After reading the workflow, follow it exactly.**
 </routing>
@@ -144,6 +167,8 @@ All in `references/`:
 **Principles:** core-principles.md, be-clear-and-direct.md, use-xml-tags.md
 **Patterns:** common-patterns.md, workflows-and-validation.md
 **Assets:** using-templates.md, using-scripts.md
+**Testing:** pressure-testing.md, rationalization-tables.md
+**Discovery:** cso-guide.md (Claude Search Optimization)
 **Advanced:** executable-code.md, api-security.md, iteration-and-testing.md
 </reference_index>
 
@@ -155,9 +180,10 @@ All in `workflows/`:
 | Workflow | Purpose |
 |----------|---------|
 | create-new-skill.md | Build a skill from scratch |
-| create-domain-expertise-skill.md | Build exhaustive domain knowledge base for build/ |
+| create-domain-expertise-skill.md | Build exhaustive domain knowledge base |
 | audit-skill.md | Analyze skill against best practices |
 | verify-skill.md | Check if content is still accurate |
+| test-skill.md | TDD validation (RED-GREEN-REFACTOR) |
 | add-workflow.md | Add a workflow to existing skill |
 | add-reference.md | Add a reference to existing skill |
 | add-template.md | Add a template to existing skill |
@@ -165,6 +191,18 @@ All in `workflows/`:
 | upgrade-to-router.md | Convert simple skill to router pattern |
 | get-guidance.md | Help decide what kind of skill to build |
 </workflows_index>
+
+<scripts_index>
+## Helper Scripts
+
+All in `scripts/`:
+
+| Script | Purpose |
+|--------|---------|
+| init-skill.sh | Initialize new skill with proper structure |
+| validate-skill.sh | Quick validation (structure, CSO, references) |
+| package-skill.sh | Create distributable .skill file |
+</scripts_index>
 
 <yaml_requirements>
 ## YAML Frontmatter

@@ -141,6 +141,84 @@ description: Processes data
 </description_field>
 </yaml_requirements>
 
+<cso_guide>
+## Claude Search Optimization (CSO)
+
+CSO is how Claude finds and loads skills. The `description` field is the primary search target.
+
+<the_description_trap>
+**CRITICAL FAILURE MODE**: Never summarize workflow in description.
+
+When the description contains workflow details, Claude may:
+1. Read description
+2. Think it "knows" what the skill does
+3. Follow description instead of reading skill body
+4. Skip essential principles, workflows, and references
+
+**Examples**:
+
+❌ **BAD** (workflow summary):
+```yaml
+description: Dispatches subagent per task with code review between tasks, validates outputs, and aggregates results into final deliverable.
+```
+
+✅ **GOOD** (triggers only):
+```yaml
+description: Use when executing implementation plans with independent tasks that can be run in parallel.
+```
+
+**The rule**: Description says WHEN to use, never HOW it works.
+</the_description_trap>
+
+<trigger_phrases>
+Start descriptions with trigger phrases:
+
+- "Use when..."
+- "This skill should be used when..."
+- "Applies when the user..."
+- "Expert guidance for..."
+
+**Include**:
+- User intents ("asks to create", "wants to build")
+- Domain keywords ("SKILL.md", "PDF files", "Stripe payments")
+- Action verbs ("creating", "auditing", "testing")
+
+**Avoid**:
+- Process language ("first", "then", "after", "before")
+- Step sequences ("dispatches", "validates", "aggregates")
+- Implementation details ("uses subprocess", "calls API")
+</trigger_phrases>
+
+<token_efficiency>
+Skills should load efficiently. Target token counts:
+
+| Content Type | Target | Rationale |
+|--------------|--------|-----------|
+| Quick-start sections | < 150 words | Immediate value, minimal overhead |
+| Frequently-loaded | < 200 words | Core principles, essential guidance |
+| Full SKILL.md | < 500 lines | Progressive disclosure to references |
+
+**Heavy content goes in references/**:
+- Detailed examples → `references/examples.md`
+- Complete workflows → `workflows/specific-task.md`
+- Domain knowledge → `references/domain-guide.md`
+- Rationalization tables → `references/rationalizations.md`
+</token_efficiency>
+
+<cso_checklist>
+Before finalizing description:
+
+- [ ] Starts with trigger phrase ("Use when...", "Expert guidance for...")
+- [ ] Written in third person
+- [ ] Under 1024 characters
+- [ ] No angle brackets (< or >)
+- [ ] Contains keywords users would search for
+- [ ] Does NOT summarize workflow or process
+- [ ] No step sequences (first, then, after)
+- [ ] Says what it does AND when to use it
+</cso_checklist>
+</cso_guide>
+
 <naming_conventions>
 Use **verb-noun convention** for skill names:
 
