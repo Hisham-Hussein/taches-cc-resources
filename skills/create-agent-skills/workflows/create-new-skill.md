@@ -134,9 +134,23 @@ Factors favoring router pattern:
 | Component | Trigger Question | Decision |
 |-----------|------------------|----------|
 | **templates/** | Does skill produce consistent output structures (plans, specs, reports, documents)? | YES → create templates/ / NO → skip |
-| **scripts/** | Does skill run the same code across invocations (deploy, setup, API calls)? | YES → create scripts/ / NO → skip |
+| **scripts/** | Does skill produce output that must be machine-parseable, OR involve complex multi-step tool execution? | YES → create scripts/ / NO → justify |
 | **variables.yaml** | Does skill have toggleable features, environment-specific behavior, or user preferences? | YES → create variables.yaml / NO → skip |
 | **prompts/** | Does skill spawn subagents (Task tool) OR hand off context between sessions? | YES → create prompts/ / NO → skip |
+
+### Scripts Decision (Requires Justification Either Way)
+
+**Scripts ARE required when:**
+- Output is consumed by other tools (JSON for piping, configs for execution)
+- Operation involves complex parsing where errors compound (AST analysis, log parsing)
+- Tool execution requires specific configuration (mutation testing, build systems)
+
+**Scripts are NOT required when:**
+- Skill is purely orchestration/guidance (tells Claude how to approach a problem)
+- Output is human-readable only (documentation, explanations)
+- Operations are simple enough that Claude can handle inline (basic CLI commands, simple code generation)
+
+**You must state your decision:** "Scripts: YES because [output consumed by X]" or "Scripts: NO because [purely orchestration, no machine-parseable output]"
 
 **Decision examples:**
 
@@ -144,6 +158,8 @@ Factors favoring router pattern:
 - Skill has `verbose_mode` toggle? → YES → needs variables.yaml
 - Skill always outputs a PLAN.md? → YES → needs templates/
 - Skill deploys to cloud? → YES → needs scripts/
+- Skill analyzes code to produce JSON report for other tools? → YES → needs scripts/
+- Skill guides user through debugging methodology? → NO scripts → purely guidance
 
 ### 3c. References
 
