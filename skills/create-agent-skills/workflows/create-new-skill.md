@@ -325,19 +325,51 @@ Report test results to user before proceeding.
 
 **If skill enforces discipline** (TDD, code review, documentation requirements):
 
+### Option A: Automated Testing (Recommended)
+
+Use the `test-skill-behavior` subagent for automated A/B comparison:
+
+1. **Create pressure scenarios** (see `references/pressure-testing.md`)
+   - Minimum 3 scenarios with combined pressures
+   - Each has A/B/C options (A=violate, B=comply, C=compromise)
+
+2. **Invoke the testing subagent**
+   ```yaml
+   Task tool:
+     description: "Test skill behavior for [skill-name]"
+     prompt: [Use template from prompts/test-skill-behavior.md]
+     subagent_type: "taches-cc-resources:test-skill-behavior"
+   ```
+
+   The subagent will spawn two agents per scenario (one without skill, one with) and compare behavior.
+
+3. **Interpret results**
+   - **PASS**: Skill changes behavior in all scenarios → proceed
+   - **PARTIAL**: Some rationalizations not addressed → add to skill, re-test
+   - **FAIL**: Skill doesn't change behavior → major revision needed
+
+4. **Build rationalization table** from Agent A's responses
+   - Copy exact rationalizations into skill
+   - Add direct counters for each
+   - See `references/rationalization-tables.md`
+
+### Option B: Manual Testing
+
+For complex skills or when automated testing isn't appropriate:
+
 Read `references/pressure-testing.md` and `references/rationalization-tables.md`.
 
-### RED Phase - Baseline Test
+**RED Phase - Baseline Test**
 1. Create 3+ pressure scenarios (time + sunk cost + exhaustion)
 2. Run scenarios WITHOUT skill loaded
 3. Document exact rationalizations verbatim
 
-### GREEN Phase - Validate Skill
+**GREEN Phase - Validate Skill**
 1. Load skill into context
 2. Run SAME scenarios
 3. Verify agent now complies
 
-### REFACTOR Phase - Bulletproof
+**REFACTOR Phase - Bulletproof**
 1. Find NEW rationalizations from GREEN
 2. Add explicit counters to skill
 3. Build rationalization table
